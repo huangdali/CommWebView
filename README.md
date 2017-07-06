@@ -4,13 +4,13 @@
 - 加载错误时出现默认页面
 - 点击默认页面可重新加载（刷新）
 - 方便获取当前在加载页面的url和title
--
+- 与js交互不变
 
 ## 导入
 app/gradle中加入依赖
 
 ```java
-compile 'com.jwkj:commwebview:v1.0.2'
+compile 'com.jwkj:commwebview:v1.0.3'
 ````
 
 ## 用法
