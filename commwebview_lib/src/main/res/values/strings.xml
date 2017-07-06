@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">CommWebView</string>
+    <string name="comm_hdl_web_url_default">file:///android_asset/comm_hdl_web_error_us.html</string>
 </resources>

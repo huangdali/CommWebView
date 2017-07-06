@@ -10,7 +10,7 @@
 app/gradle中加入依赖
 
 ```java
-compile 'com.jwkj:commwebview:v1.0.3'
+compile 'com.jwkj:commwebview:v1.0.5'
 ````
 
 ## 用法
@@ -55,3 +55,27 @@ compile 'com.jwkj:commwebview:v1.0.3'
         super.onDestroy();
     }
 ```
+
+效果图
+
+![](https://github.com/huangdali/commwebview/blob/master/com_web.gif)
+
+中文加载失败页面
+
+
+![](https://github.com/huangdali/commwebview/blob/master/no_net_zh.png)
+
+英文加载失败页面
+
+
+![](https://github.com/huangdali/commwebview/blob/master/no_net_us.png)
+
+## 版本记录
+
+1.0.5
+- 【新增】英文版加载失败页面（带刷新功能）
+
+1.0.4
+- 【新增】中文版加载失败页面（带刷新功能）
+
+1.0.4 以前版本未记录

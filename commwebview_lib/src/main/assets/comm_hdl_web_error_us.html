@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=2.0, user-scalable=yes" />
     <title>No Connection</title>
 
     <!-- Stylesheets-->
@@ -83,21 +84,18 @@
 
     </style>
     <script>
-     function refresh(){
+     function refreshPager(){
         //调用android本地方法
-             NativeObj.refresh();
+             NativeObj.refreshPager();
         }
-
-
-
 
     </script>
 </head>
-<body onclick="JavaScript:refresh()">
+<body onclick="JavaScript:refreshPager()">
 <div>
-    <div id="cloud"><h2>网络加载失败啦:(</h2>
+    <div id="cloud"><h2>Network load failed! :(</h2>
         <div>
-            <h4>点击,重新加载。O(∩_∩)O</h4>
+            <h4>Click on the page to refresh。O(∩_∩)O</h4>
         </div>
         <span class="shadow"></span>
     </div>

@@ -1,6 +1,7 @@
 package com.jwkj;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.net.http.SslError;
@@ -8,6 +9,7 @@ import android.os.Build;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.JavascriptInterface;
 import android.webkit.SslErrorHandler;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
@@ -42,10 +44,8 @@ public class CommWebView extends LinearLayout {
      * 采用addview(webview)的方式添加到线性布局，可以及时销毁webview
      */
     private WebView webview;
-    /**
-     * 加载失败时模式显示的页面
-     */
-    private static final String KEY_DEFAULT_ERROR_URL = "file:///android_asset/web_error.html";
+
+    private Context context;
 
     public CommWebView(Context context) {
         this(context, null);
@@ -57,6 +57,7 @@ public class CommWebView extends LinearLayout {
 
     public CommWebView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
+        this.context = context;
         initConfig(context);
     }
 
@@ -99,7 +100,7 @@ public class CommWebView extends LinearLayout {
             @Override
             public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
                 super.onReceivedError(view, errorCode, description, failingUrl);
-                loadWebUrl(KEY_DEFAULT_ERROR_URL);
+                loadWebUrl(context.getResources().getString(R.string.comm_hdl_web_url_default));
                 if (callback != null) {
                     callback.onError(errorCode, description, failingUrl);
                 }
@@ -157,6 +158,7 @@ public class CommWebView extends LinearLayout {
         setOrientation(LinearLayout.VERTICAL);
         LayoutParams params = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         webview.setLayoutParams(params);
+        webview.addJavascriptInterface(new JSCallJava(), "NativeObj");
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {//3.0以上暂时关闭硬件加速
 //            webview.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
 //        }
@@ -281,5 +283,23 @@ public class CommWebView extends LinearLayout {
      */
     public void refresh() {
         loadWebUrl(curWebUrl);
+    }
+
+
+    public class JSCallJava {
+        @JavascriptInterface
+        public void refreshPager() {
+            if (context != null) {
+                /**
+                 * 4.4以上的webview，需要在子线程中调用js与java互相调用的代码
+                 */
+                ((Activity) context).runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        refresh();
+                    }
+                });
+            }
+        }
     }
 }

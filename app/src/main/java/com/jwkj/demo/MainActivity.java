@@ -4,8 +4,9 @@ import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
-import android.webkit.JavascriptInterface;
-import android.widget.FrameLayout;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.hdl.elog.ELog;
@@ -16,7 +17,8 @@ public class MainActivity extends AppCompatActivity {
     private CommWebView wv_main;
     private ProgressDialog mProgressDialog;
     private TextView tvTitle;
-    private FrameLayout fl_full;
+    private LinearLayout fl_full;
+    private EditText etUrl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,10 +27,11 @@ public class MainActivity extends AppCompatActivity {
         mProgressDialog = new ProgressDialog(this);
         tvTitle = (TextView) findViewById(R.id.tv_title);
         mProgressDialog.setMessage("玩命加载中");
-        fl_full= (FrameLayout) findViewById(R.id.fl_full);
+        fl_full = (LinearLayout) findViewById(R.id.fl_full);
+        etUrl = (EditText) findViewById(R.id.et_url);
         wv_main = (CommWebView) findViewById(R.id.wv_main);
-        wv_main.setCurWebUrl("http://upg.cloudlinks.cn/demo/default.htm")
-                .addJavascriptInterface(new JSCallJava(), "NativeObj")
+//        wv_main.setCurWebUrl("http://upg.cloudlinks.cn/demo/default.htm")
+        wv_main.setCurWebUrl("ht1tps://www.baidu.com")
                 .startCallback(new WebViewCallback() {
                     @Override
                     public void onStart() {
@@ -71,25 +74,15 @@ public class MainActivity extends AppCompatActivity {
         return false;
     }
 
-    public class JSCallJava {
-        @JavascriptInterface
-        public void refresh() {
-            ELog.e("点击刷新了");
-            /**
-             * 4.4以上的webview，需要在子线程中调用js与java互相调用的代码
-             */
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    wv_main.refresh();
-                }
-            });
-        }
-    }
-
     @Override
     protected void onDestroy() {
         wv_main.onDestroy();
         super.onDestroy();
+    }
+
+    public void onGoUrl(View view) {
+        String url = etUrl.getText().toString().trim();
+        wv_main.setCurWebUrl(url);
+        wv_main.refresh();//需要调用刷新
     }
 }
