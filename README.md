@@ -10,7 +10,7 @@
 app/gradle中加入依赖
 
 ```java
-compile 'com.jwkj:commwebview:v1.0.5'
+compile 'com.jwkj:commwebview:v1.0.6'
 ````
 
 ## 用法
@@ -71,6 +71,9 @@ compile 'com.jwkj:commwebview:v1.0.5'
 ![](https://github.com/huangdali/commwebview/blob/master/no_net_us.png)
 
 ## 版本记录
+
+1.0.6
+- 【修复】部分网页大不开
 
 1.0.5
 - 【新增】英文版加载失败页面（带刷新功能）

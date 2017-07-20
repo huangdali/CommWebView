@@ -73,6 +73,7 @@ public class CommWebView extends LinearLayout {
         settings.setPluginState(WebSettings.PluginState.ON);
         settings.setAllowFileAccess(true);
         settings.setLoadWithOverviewMode(true);
+        settings.setDomStorageEnabled(true);
         settings.setUseWideViewPort(true);
         settings.setJavaScriptEnabled(true);//设置是否支持与js互相调用
         settings.setCacheMode(WebSettings.LOAD_NO_CACHE);//不使用网络缓存，开启的话容易导致app膨胀导致卡顿
