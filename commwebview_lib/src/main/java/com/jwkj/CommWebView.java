@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.JavascriptInterface;
 import android.webkit.SslErrorHandler;
+import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -219,6 +220,26 @@ public class CommWebView extends LinearLayout {
         return this;
     }
 
+    /**
+     * 获取webview
+     *
+     * @return
+     */
+    public WebView getWebview() {
+        return webview;
+    }
+
+    /**
+     * 执行js代码
+     *
+     * @param js
+     * @param callback
+     */
+    public void evaluateJavascript(String js, ValueCallback<String> callback) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            webview.evaluateJavascript(js, callback);
+        }
+    }
 
     public String getCurWebUrl() {
         return curWebUrl;
