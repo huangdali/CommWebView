@@ -47,6 +47,7 @@ public class CommWebView extends LinearLayout {
     private WebView webview;
 
     private Context context;
+    private boolean isTransparent = false;
 
     public CommWebView(Context context) {
         this(context, null);
@@ -69,6 +70,7 @@ public class CommWebView extends LinearLayout {
      */
     private void initConfig(final Context context) {
         webview = new WebView(context.getApplicationContext());
+        transparent();
         WebSettings settings = webview.getSettings();
         settings.setJavaScriptCanOpenWindowsAutomatically(true);
         settings.setPluginState(WebSettings.PluginState.ON);
@@ -173,6 +175,20 @@ public class CommWebView extends LinearLayout {
 
         }
         addView(webview);
+    }
+
+    private void transparent() {
+        if (isTransparent) {
+            webview.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+            setBackgroundColor(0);
+            webview.setBackgroundColor(0);
+            setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+        }
+    }
+
+    public void setTransparent(boolean transparent) {
+        isTransparent = transparent;
+        transparent();
     }
 
     /**

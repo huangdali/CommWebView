@@ -5,6 +5,7 @@
 - 点击默认页面可重新加载（刷新）
 - 方便获取当前在加载页面的url和title
 - 与js交互不变
+- 可设置背景透明
 
 ## 导入
 app/gradle中加入依赖
@@ -71,6 +72,10 @@ compile 'com.jwkj:commwebview:v1.0.7'
 ![](https://github.com/huangdali/commwebview/blob/master/no_net_us.png)
 
 ## 版本记录
+
+1.0.8 ( [2017.08.21]() )
+
+- 【新增】设置是否背景透明方法setTransparent（默认不透明）
 
 1.0.7 ( [2017.08.04]() )
 - 【新增】evaluateJavascript方法
