@@ -11,7 +11,7 @@
 app/gradle中加入依赖
 
 ```java
-compile 'com.jwkj:commwebview:v1.0.7'
+compile 'com.jwkj:commwebview:v1.0.9'
 ````
 
 ## 用法
@@ -72,6 +72,10 @@ compile 'com.jwkj:commwebview:v1.0.7'
 ![](https://github.com/huangdali/commwebview/blob/master/no_net_us.png)
 
 ## 版本记录
+
+1.0.9 ( [2017.09.01]() )
+
+- 【修复】中文环境无网络环境时的标题为英文
 
 1.0.8 ( [2017.08.21]() )
 
