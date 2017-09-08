@@ -11,7 +11,7 @@
 app/gradle中加入依赖
 
 ```java
-compile 'com.jwkj:commwebview:v1.0.9'
+compile 'com.jwkj:commwebview:v1.1.2'
 ````
 
 ## 用法
@@ -72,6 +72,10 @@ compile 'com.jwkj:commwebview:v1.0.9'
 ![](https://github.com/huangdali/commwebview/blob/master/no_net_us.png)
 
 ## 版本记录
+
+v1.1.2 ( [2017.09.08]() )
+
+- 【修复】特殊情况抛出空指针
 
 v1.0.9 ( [2017.09.01]() )
 

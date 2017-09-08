@@ -6,6 +6,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.net.http.SslError;
 import android.os.Build;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
@@ -281,8 +282,12 @@ public class CommWebView extends LinearLayout {
      * @param url
      */
     private CommWebView loadWebUrl(String url) {
-        curWebUrl = url;//记录当前的url
-        webview.loadUrl(curWebUrl);//webview加载url
+        if (!TextUtils.isEmpty(url)) {
+            curWebUrl = url;//记录当前的url
+            if (webview != null) {
+                webview.loadUrl(curWebUrl);//webview加载url
+            }
+        }
         return this;
     }
 
