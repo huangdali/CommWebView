@@ -2,7 +2,7 @@
 通用webview
 - 避免API < 17 下的漏洞
 - 加载错误时出现默认页面
-- 点击默认页面可重新加载（刷新）
+- 点击默认页面可重新加载（刷新）--->两种错误提示页面
 - 方便获取当前在加载页面的url和title
 - 与js交互不变
 - 可设置背景透明
@@ -11,7 +11,7 @@
 app/gradle中加入依赖
 
 ```java
-compile 'com.jwkj:commwebview:v1.1.2'
+compile 'com.jwkj:commwebview:v1.1.3'
 ````
 
 ## 用法
@@ -61,17 +61,31 @@ compile 'com.jwkj:commwebview:v1.1.2'
 
 ![](https://github.com/huangdali/commwebview/blob/master/com_web.gif)
 
-中文加载失败页面
+中文加载失败页面1(默认)
 
 
 ![](https://github.com/huangdali/commwebview/blob/master/no_net_zh.png)
 
-英文加载失败页面
+中文加载失败页面2
+
+
+![](https://github.com/huangdali/commwebview/blob/master/image.png)
+
+英文加载失败页面1（默认）
 
 
 ![](https://github.com/huangdali/commwebview/blob/master/no_net_us.png)
 
+英文加载失败页面2
+
+
+![](https://github.com/huangdali/commwebview/blob/master/image_us.png)
+
 ## 版本记录
+
+v1.1.3 ( [2017.09.11]() )
+
+- 【新增】网络错误默认页面，通过方法设置setNetErrorConfig(CommWebView.NetErrorConfig.DEFAULT_BUTTON);，默认是DEFAULT_BODY
 
 v1.1.2 ( [2017.09.08]() )
 

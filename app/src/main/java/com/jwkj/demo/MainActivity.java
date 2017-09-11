@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
         fl_full = (LinearLayout) findViewById(R.id.fl_full);
         etUrl = (EditText) findViewById(R.id.et_url);
         wv_main = (CommWebView) findViewById(R.id.wv_main);
+        wv_main.setNetErrorConfig(CommWebView.NetErrorConfig.DEFAULT_BUTTON);
 //        wv_main.setCurWebUrl("http://upg.cloudlinks.cn/demo/default.htm")
         wv_main.setCurWebUrl("ht1tps://www.baidu.com")
                 .startCallback(new WebViewCallback() {

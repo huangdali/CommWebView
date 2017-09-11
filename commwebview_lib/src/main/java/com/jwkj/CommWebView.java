@@ -48,7 +48,14 @@ public class CommWebView extends LinearLayout {
     private WebView webview;
 
     private Context context;
+    /**
+     * 是否背景透明
+     */
     private boolean isTransparent = false;
+    /**
+     * 网络加载出错时显示的界面，默认NetErrorConfig.DEFAULT_BODY
+     */
+    private NetErrorConfig netErrorConfig = NetErrorConfig.DEFAULT_BODY;
 
     public CommWebView(Context context) {
         this(context, null);
@@ -105,7 +112,11 @@ public class CommWebView extends LinearLayout {
             @Override
             public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
                 super.onReceivedError(view, errorCode, description, failingUrl);
-                loadWebUrl(context.getResources().getString(R.string.comm_hdl_web_url_default));
+                if (NetErrorConfig.DEFAULT_BODY.equals(netErrorConfig)) {
+                    loadWebUrl(context.getResources().getString(R.string.comm_hdl_web_url_default));
+                } else {
+                    loadWebUrl(context.getResources().getString(R.string.comm_hdl_web_url_default2));
+                }
                 if (callback != null) {
                     callback.onError(errorCode, description, failingUrl);
                 }
@@ -190,6 +201,10 @@ public class CommWebView extends LinearLayout {
     public void setTransparent(boolean transparent) {
         isTransparent = transparent;
         transparent();
+    }
+
+    public void setNetErrorConfig(NetErrorConfig netErrorConfig) {
+        this.netErrorConfig = netErrorConfig;
     }
 
     /**
@@ -344,5 +359,14 @@ public class CommWebView extends LinearLayout {
                 });
             }
         }
+    }
+
+    /**
+     * 网络错误页.
+     * DEFAULT_BODY-->点击body刷新（默认）
+     * DEFAULT_BUTTON-->点击按钮刷新
+     */
+    public enum NetErrorConfig {
+        DEFAULT_BODY, DEFAULT_BUTTON
     }
 }

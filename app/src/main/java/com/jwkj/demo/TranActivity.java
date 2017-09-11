@@ -9,7 +9,7 @@ import com.jwkj.CommWebView;
 public class TranActivity extends FragmentActivity{
 
     private CommWebView webView;
-    private String url = "http://39.108.193.125:8080/vas/pages/dialogs/";
+    private String url = "http://:8080/vas/pages/dialogs/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
