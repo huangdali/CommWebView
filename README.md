@@ -11,7 +11,7 @@
 app/gradle中加入依赖
 
 ```java
-compile 'com.jwkj:commwebview:v1.1.3'
+compile 'com.jwkj:commwebview:v1.1.4'
 ````
 
 ## 用法
@@ -83,7 +83,7 @@ compile 'com.jwkj:commwebview:v1.1.3'
 
 ## 版本记录
 
-v1.1.3 ( [2017.09.11]() )
+v1.1.4 ( [2017.09.11]() )
 
 - 【新增】网络错误默认页面，通过方法设置setNetErrorConfig(CommWebView.NetErrorConfig.DEFAULT_BUTTON);，默认是DEFAULT_BODY
 
