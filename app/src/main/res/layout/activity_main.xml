@@ -45,6 +45,7 @@
     <com.jwkj.CommWebView
         android:id="@+id/wv_main"
         android:layout_width="match_parent"
+        android:layerType="hardware"
         android:layout_height="match_parent" />
 
 </LinearLayout>

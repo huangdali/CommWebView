@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -24,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED);
         mProgressDialog = new ProgressDialog(this);
         tvTitle = (TextView) findViewById(R.id.tv_title);
         mProgressDialog.setMessage("玩命加载中");
@@ -32,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         wv_main = (CommWebView) findViewById(R.id.wv_main);
         wv_main.setNetErrorConfig(CommWebView.NetErrorConfig.DEFAULT_BUTTON);
 //        wv_main.setCurWebUrl("http://upg.cloudlinks.cn/demo/default.htm")
-        wv_main.setCurWebUrl("ht1tps://www.baidu.com")
+        wv_main.setCurWebUrl("https://mobile.cloudlinks.cn/vas/pages/share-live/?liveId=7b7e44e3b79f11e7b1c100163e008337")
                 .startCallback(new WebViewCallback() {
                     @Override
                     public void onStart() {

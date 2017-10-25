@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.net.http.SslError;
 import android.os.Build;
 import android.text.TextUtils;
@@ -23,6 +24,8 @@ import android.widget.LinearLayout;
 /**
  * 通用webview
  * Created by HDL on 2017/6/23.
+ *
+ * @author hdl
  */
 
 public class CommWebView extends LinearLayout {
@@ -67,6 +70,7 @@ public class CommWebView extends LinearLayout {
 
     public CommWebView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
+        setLayerType(View.LAYER_TYPE_SOFTWARE, null);
         this.context = context;
         initConfig(context);
     }
@@ -86,6 +90,7 @@ public class CommWebView extends LinearLayout {
         settings.setLoadWithOverviewMode(true);
         settings.setDomStorageEnabled(true);
         settings.setUseWideViewPort(true);
+        settings.setSupportMultipleWindows(true);// 新加
         settings.setJavaScriptEnabled(true);//设置是否支持与js互相调用
         settings.setCacheMode(WebSettings.LOAD_NO_CACHE);//不使用网络缓存，开启的话容易导致app膨胀导致卡顿
         webview.setWebViewClient(new WebViewClient() {//设置webviewclient,使其不会由第三方浏览器打开新的url
@@ -138,6 +143,15 @@ public class CommWebView extends LinearLayout {
             @Override
             public void onShowCustomView(View view, CustomViewCallback callback) {
                 super.onShowCustomView(view, callback);
+
+                ViewGroup parent = (ViewGroup) webview.getParent();
+                parent.removeView(webview);
+                // 设置背景色为黑色
+                view.setBackgroundColor(Color.BLACK);
+                parent.addView(view);
+                if (onVedioFullScreenListener != null) {
+                    onVedioFullScreenListener.onSetFullScreen();
+                }
                 if (mCustomView != null) {
                     callback.onCustomViewHidden();
                     return;
@@ -148,14 +162,20 @@ public class CommWebView extends LinearLayout {
 
             @Override
             public void onHideCustomView() {
+                super.onHideCustomView();
                 webview.setVisibility(View.VISIBLE);
                 if (mCustomView == null) {
                     return;
                 }
+                ViewGroup parent = (ViewGroup) mCustomView.getParent();
+                parent.removeView(mCustomView);
+                parent.addView(webview);
                 mCustomView.setVisibility(View.GONE);
                 mCustomViewCallback.onCustomViewHidden();
                 mCustomView = null;
-                super.onHideCustomView();
+                if (onVedioFullScreenListener != null) {
+                    onVedioFullScreenListener.onQuitFullScreen();
+                }
             }
 
             @Override
@@ -367,6 +387,25 @@ public class CommWebView extends LinearLayout {
      * DEFAULT_BUTTON-->点击按钮刷新
      */
     public enum NetErrorConfig {
-        DEFAULT_BODY, DEFAULT_BUTTON
+        /**
+         * 默认加载失败页面，点击body刷新
+         */
+        DEFAULT_BODY,
+        /**
+         * 点击按钮刷新
+         */
+        DEFAULT_BUTTON
     }
+    private OnVedioFullScreenListener onVedioFullScreenListener;
+
+    public void setOnVedioFullScreenListener(OnVedioFullScreenListener onVedioFullScreenListener) {
+        this.onVedioFullScreenListener = onVedioFullScreenListener;
+    }
+
+    public interface OnVedioFullScreenListener {
+        void onSetFullScreen();
+
+        void onQuitFullScreen();
+    }
+
 }

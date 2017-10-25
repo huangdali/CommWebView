@@ -83,6 +83,10 @@ compile 'com.jwkj:commwebview:v1.1.4'
 
 ## 版本记录
 
+v1.2.1 ( [2017.10.25]() )
+
+- 【新增】视频全屏与退出全屏监听
+
 v1.1.4 ( [2017.09.11]() )
 
 - 【新增】网络错误默认页面，通过方法设置setNetErrorConfig(CommWebView.NetErrorConfig.DEFAULT_BUTTON);，默认是DEFAULT_BODY
