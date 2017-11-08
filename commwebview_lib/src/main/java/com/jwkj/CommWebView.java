@@ -91,6 +91,9 @@ public class CommWebView extends LinearLayout {
         settings.setDomStorageEnabled(true);
         settings.setUseWideViewPort(true);
         settings.setSupportMultipleWindows(true);// 新加
+        //开启硬件加速
+        this.setLayerType(View.LAYER_TYPE_HARDWARE, null);
+        webview.setLayerType(View.LAYER_TYPE_HARDWARE, null);
         settings.setJavaScriptEnabled(true);//设置是否支持与js互相调用
         settings.setCacheMode(WebSettings.LOAD_NO_CACHE);//不使用网络缓存，开启的话容易导致app膨胀导致卡顿
         webview.setWebViewClient(new WebViewClient() {//设置webviewclient,使其不会由第三方浏览器打开新的url
@@ -112,6 +115,9 @@ public class CommWebView extends LinearLayout {
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
                 webTitle = view.getTitle();
+                if (callback != null) {
+                    callback.onPageFinished();
+                }
             }
 
             @Override

@@ -29,4 +29,10 @@ public abstract class WebViewCallback {
      */
     public void onError(int errorCode, String description, String failingUrl) {
     }
+
+    /**
+     * 当页面加载完成的时候，此方法不靠谱，如果页面有跳转会回调多次
+     */
+    public void onPageFinished() {
+    }
 }
