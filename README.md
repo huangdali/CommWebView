@@ -11,7 +11,7 @@
 app/gradle中加入依赖
 
 ```java
-compile 'com.jwkj:commwebview:v1.1.4'
+compile 'com.jwkj:commwebview:v1.2.3'
 ````
 
 ## 用法
