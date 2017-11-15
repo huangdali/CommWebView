@@ -83,6 +83,10 @@ compile 'com.jwkj:commwebview:v1.1.4'
 
 ## 版本记录
 
+v1.2.3 ( [2017.11.15]() )
+
+- 【优化】删除清单文件中的appname，防止部分依赖时app名字被修改
+
 v1.2.2 ( [2017.11.08]() )
 
 - 【新增】onPageFinished回调

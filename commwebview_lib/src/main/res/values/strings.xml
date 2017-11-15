@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">CommWebView</string>
+    <string name="app_name1">CommWebView</string>
     <string name="comm_hdl_web_url_default">file:///android_asset/comm_hdl_web_error_us.html</string>
     <string name="comm_hdl_web_url_default2">file:///android_asset/net_error_us.html</string>
 </resources>
