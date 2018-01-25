@@ -5,6 +5,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.http.SslError;
 import android.os.Build;
 import android.text.TextUtils;
@@ -76,6 +78,24 @@ public class CommWebView extends LinearLayout {
     }
 
     /**
+     * 判断网络是否可用网络状态
+     *
+     * @param context
+     * @return
+     */
+    public boolean isNetworkConnected(Context context) {
+        if (context != null) {
+            ConnectivityManager mConnectivityManager = (ConnectivityManager) context
+                    .getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo mNetworkInfo = mConnectivityManager.getActiveNetworkInfo();
+            if (mNetworkInfo != null) {
+                return mNetworkInfo.isAvailable();
+            }
+        }
+        return false;
+    }
+
+    /**
      * 初始化参数配置
      *
      * @param context
@@ -124,9 +144,9 @@ public class CommWebView extends LinearLayout {
             public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
                 super.onReceivedError(view, errorCode, description, failingUrl);
                 if (NetErrorConfig.DEFAULT_BODY.equals(netErrorConfig)) {
-                    loadWebUrl(context.getResources().getString(R.string.comm_hdl_web_url_default));
+                    webview.loadUrl(context.getResources().getString(R.string.comm_hdl_web_url_default));
                 } else {
-                    loadWebUrl(context.getResources().getString(R.string.comm_hdl_web_url_default2));
+                    webview.loadUrl(context.getResources().getString(R.string.comm_hdl_web_url_default2));
                 }
                 if (callback != null) {
                     callback.onError(errorCode, description, failingUrl);
@@ -149,7 +169,6 @@ public class CommWebView extends LinearLayout {
             @Override
             public void onShowCustomView(View view, CustomViewCallback callback) {
                 super.onShowCustomView(view, callback);
-
                 ViewGroup parent = (ViewGroup) webview.getParent();
                 parent.removeView(webview);
                 // 设置背景色为黑色
@@ -186,7 +205,9 @@ public class CommWebView extends LinearLayout {
 
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
-                curWebUrl = view.getUrl();
+                if (!"file:".equals(view.getUrl().substring(0,5))) {
+                    curWebUrl = view.getUrl();
+                }
                 webTitle = view.getTitle();
                 if (callback != null) {
                     callback.onProgress(newProgress);
@@ -255,7 +276,18 @@ public class CommWebView extends LinearLayout {
      */
     public CommWebView startCallback(WebViewCallback callback) {
         this.callback = callback;
-        loadWebUrl(curWebUrl);
+        if (isNetworkConnected(context)) {
+            loadWebUrl(curWebUrl);
+        }else {
+            if (NetErrorConfig.DEFAULT_BODY.equals(netErrorConfig)) {
+                webview.loadUrl(context.getResources().getString(R.string.comm_hdl_web_url_default));
+            } else {
+                webview.loadUrl(context.getResources().getString(R.string.comm_hdl_web_url_default2));
+            }
+            if (callback != null) {
+                callback.onError(202, "No Netwark", curWebUrl);
+            }
+        }
         return this;
     }
 
@@ -294,8 +326,10 @@ public class CommWebView extends LinearLayout {
      * @param callback
      */
     public void evaluateJavascript(String js, ValueCallback<String> callback) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            webview.evaluateJavascript(js, callback);
+        if (webview != null) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                webview.evaluateJavascript(js, callback);
+            }
         }
     }
 
@@ -368,8 +402,6 @@ public class CommWebView extends LinearLayout {
     public void refresh() {
         loadWebUrl(curWebUrl);
     }
-
-
     public class JSCallJava {
         @JavascriptInterface
         public void refreshPager() {
@@ -380,7 +412,18 @@ public class CommWebView extends LinearLayout {
                 ((Activity) context).runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        refresh();
+                        if (isNetworkConnected(context)) {
+                            refresh();
+                        }else {
+                            if (NetErrorConfig.DEFAULT_BODY.equals(netErrorConfig)) {
+                                webview.loadUrl(context.getResources().getString(R.string.comm_hdl_web_url_default));
+                            } else {
+                                webview.loadUrl(context.getResources().getString(R.string.comm_hdl_web_url_default2));
+                            }
+                            if (callback != null) {
+                                callback.onError(202, "No Netwark", curWebUrl);
+                            }
+                        }
                     }
                 });
             }
@@ -402,6 +445,7 @@ public class CommWebView extends LinearLayout {
          */
         DEFAULT_BUTTON
     }
+
     private OnVedioFullScreenListener onVedioFullScreenListener;
 
     public void setOnVedioFullScreenListener(OnVedioFullScreenListener onVedioFullScreenListener) {

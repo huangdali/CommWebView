@@ -11,7 +11,7 @@
 app/gradle中加入依赖
 
 ```java
-compile 'com.jwkj:commwebview:v1.2.3'
+compile 'com.jwkj:commwebview:v1.2.5'
 ````
 
 ## 用法
@@ -82,6 +82,14 @@ compile 'com.jwkj:commwebview:v1.2.3'
 ![](https://github.com/huangdali/commwebview/blob/master/image_us.png)
 
 ## 版本记录
+
+v1.2.5 ( [2018.01.25]() )
+
+- 【优化】点击默认加载失败页面的刷新无效问题
+
+v1.2.4 ( [2017.11.23]() )
+
+- 【优化】部分魅族手机崩溃问题
 
 v1.2.3 ( [2017.11.15]() )
 

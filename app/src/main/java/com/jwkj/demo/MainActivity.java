@@ -34,11 +34,11 @@ public class MainActivity extends AppCompatActivity {
         wv_main = (CommWebView) findViewById(R.id.wv_main);
         wv_main.setNetErrorConfig(CommWebView.NetErrorConfig.DEFAULT_BUTTON);
 //        wv_main.setCurWebUrl("http://upg.cloudlinks.cn/demo/default.htm")
-        wv_main.setCurWebUrl("https://mobile.cloudlinks.cn/vas/pages/share-live/?liveId=7b7e44e3b79f11e7b1c100163e008337")
+        wv_main.setCurWebUrl("https://www.baidu.com")
                 .startCallback(new WebViewCallback() {
                     @Override
                     public void onStart() {
-                        ELog.e("开始调用了");
+                        ELog.e("开始调用了"+wv_main.getCurWebUrl());
                         mProgressDialog.show();
                     }
 
