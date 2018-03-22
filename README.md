@@ -11,7 +11,7 @@
 app/gradle中加入依赖
 
 ```java
-compile 'com.jwkj:commwebview:v1.2.5'
+compile 'com.jwkj:commwebview:v1.2.6'
 ````
 
 ## 用法
@@ -82,6 +82,10 @@ compile 'com.jwkj:commwebview:v1.2.5'
 ![](https://github.com/huangdali/commwebview/blob/master/image_us.png)
 
 ## 版本记录
+
+v1.2.6 ( [2018.03.22]() )
+
+- 【优化】适配Android8.0
 
 v1.2.5 ( [2018.01.25]() )
 

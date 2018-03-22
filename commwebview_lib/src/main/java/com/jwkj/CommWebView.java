@@ -120,8 +120,18 @@ public class CommWebView extends LinearLayout {
 
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                loadWebUrl(url);
-                return true;//设置为true才有效哦
+                if (shouldLoadingUrl()) {
+                    loadWebUrl(url);
+                    return true;
+                }
+                return false;//设置为false才有效哦
+            }
+
+            public boolean shouldLoadingUrl() {
+                /**
+                 * 低于android 8.0的需要手动loadURL，大于等于android 8.0直接返回false，否则无法重定向
+                 */
+                return Build.VERSION.SDK_INT < 26;
             }
 
             @Override
@@ -205,7 +215,7 @@ public class CommWebView extends LinearLayout {
 
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
-                if (!"file:".equals(view.getUrl().substring(0,5))) {
+                if (!"file:".equals(view.getUrl().substring(0, 5))) {
                     curWebUrl = view.getUrl();
                 }
                 webTitle = view.getTitle();
@@ -278,7 +288,7 @@ public class CommWebView extends LinearLayout {
         this.callback = callback;
         if (isNetworkConnected(context)) {
             loadWebUrl(curWebUrl);
-        }else {
+        } else {
             if (NetErrorConfig.DEFAULT_BODY.equals(netErrorConfig)) {
                 webview.loadUrl(context.getResources().getString(R.string.comm_hdl_web_url_default));
             } else {
@@ -402,6 +412,7 @@ public class CommWebView extends LinearLayout {
     public void refresh() {
         loadWebUrl(curWebUrl);
     }
+
     public class JSCallJava {
         @JavascriptInterface
         public void refreshPager() {
@@ -414,7 +425,7 @@ public class CommWebView extends LinearLayout {
                     public void run() {
                         if (isNetworkConnected(context)) {
                             refresh();
-                        }else {
+                        } else {
                             if (NetErrorConfig.DEFAULT_BODY.equals(netErrorConfig)) {
                                 webview.loadUrl(context.getResources().getString(R.string.comm_hdl_web_url_default));
                             } else {

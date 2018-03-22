@@ -1,7 +1,9 @@
 package com.jwkj.demo;
 
 import android.app.ProgressDialog;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.View;
@@ -21,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
     private LinearLayout fl_full;
     private EditText etUrl;
 
+    @RequiresApi(api = Build.VERSION_CODES.ECLAIR_MR1)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,8 +36,9 @@ public class MainActivity extends AppCompatActivity {
         etUrl = (EditText) findViewById(R.id.et_url);
         wv_main = (CommWebView) findViewById(R.id.wv_main);
         wv_main.setNetErrorConfig(CommWebView.NetErrorConfig.DEFAULT_BUTTON);
+        wv_main.getWebview().getSettings().setDomStorageEnabled(true);
 //        wv_main.setCurWebUrl("http://upg.cloudlinks.cn/demo/default.htm")
-        wv_main.setCurWebUrl("https://www.baidu.com")
+        wv_main.setCurWebUrl("http://39.108.193.125:8080/vas/")
                 .startCallback(new WebViewCallback() {
                     @Override
                     public void onStart() {
