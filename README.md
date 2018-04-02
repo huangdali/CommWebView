@@ -1,4 +1,4 @@
-# CommWebView
+# CommWebView [![License](https://img.shields.io/badge/license-Apache%202-green.svg)](https://www.apache.org/licenses/LICENSE-2.0) [![Download](https://api.bintray.com/packages/huangdali/jwkj/commwebview/images/download.svg) ](https://bintray.com/huangdali/jwkj/commwebview/_latestVersion)
 通用webview
 - 避免API < 17 下的漏洞
 - 加载错误时出现默认页面
